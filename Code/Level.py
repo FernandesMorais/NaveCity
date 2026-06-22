@@ -1,14 +1,30 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from idlelib.calltip import get_entity
 
-from GAME import GAME
+import pygame
+
+from Code.Entity import Entity
+from Code.EntityFactory import EntityFactory
 
 
-class LEVEL(GAME):
-    def __init__(self):
-        self.window = None
-        self.name = None
-        self.entity_list = None
+class Level:
+    def __init__(self, window, name, game_mode):
+        self.window = window
+        self.name = name
+        self.game_mode = game_mode
+        self.entity_list = []
+        self.entity_list.extend(EntityFactory.get_entity(self.name))
+
 
     def run(self, ):
-        pass
+        while True:
+            for ent in self.entity_list:
+                self.window.blit(source=ent.surf, dest=ent.rect)
+                ent.move()
+            pygame.display.flip()
+
+
+            pass
+
+
