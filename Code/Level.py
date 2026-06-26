@@ -63,7 +63,7 @@ class Level:
 
 
 
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout - 1000 :.1f}s',
+            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s',
                             COLOR_WHITE, text_pos=(10, 5))
             self.level_text(14, f'fps: {clock.get_fps() :.0f}',
                             COLOR_WHITE, text_pos=(10, WIN_HEIGHT - 35))
