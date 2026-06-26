@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import sys
-from idlelib.calltip import get_entity
+
 import random
 import pygame
 from pygame import Surface
 from pygame.font import Font
 
-from Code.Const import COLOR_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN
+from Code.Background import Background
+from Code.Const import COLOR_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN, COLOR_YELLOW
 from Code.Enemy import Enemy
-from Code.Entity import Entity
 from Code.EntityFactory import EntityFactory
 from Code.EntityMediator import EntityMediator
 from Code.Player import Player
@@ -28,8 +28,7 @@ class Level:
             self.entity_list.append(EntityFactory.get_entity('Player2'))
         pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
 
-
-    def run(self):
+    def run(self, EVENT_TIMEOUT=None, TIMEOUT_STEP=None, player_score=None):
         pygame.mixer_music.load(f'./assets/musicalevel1.wav')
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
@@ -42,13 +41,16 @@ class Level:
                     shoot = ent.shoot()
                     if shoot is not None:
                         self.entity_list.append(shoot)
-
                 if ent.name == 'Player1':
-                    self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score}',
-                                    C_GREEN, text_pos=(10, 5))
+                    self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score}', C_GREEN,
+                                    text_pos=(10, 25))
                 if ent.name == 'Player2':
-                    self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score}',
-                                    C_CYAN, text_pos=(10, 5))
+                    self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score}', C_CYAN,
+                                    text_pos=(10, 45))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
 
 
 
@@ -58,9 +60,8 @@ class Level:
                             COLOR_WHITE, text_pos=(10, WIN_HEIGHT - 35))
             self.level_text(14, f'entidades: {len(self.entity_list)}',
                             COLOR_WHITE, text_pos=(10, WIN_HEIGHT - 20))
-
             pygame.display.flip()
-            #collisions
+            # collisions
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
 
@@ -72,13 +73,10 @@ class Level:
                     choice = random.choice(('Enemy1', 'Enemy2'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
 
-
-
-
             pass
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
         text_font: Font = pygame.font.SysFont("Lucida Sans Typewriter", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
-        text_rect = Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
+        text_rect = pygame.rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
         self.window.blit(source=text_surf, dest=text_rect)
