@@ -23,6 +23,7 @@ class Level:
         self.window = window
         self.name = name
         self.game_mode = game_mode
+        self.timeout_restante = TIMEOUT_LEVEL / 1000.0
         self.entity_list: list [Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'BG'))
         player = EntityFactory.get_entity('Player1')
@@ -36,13 +37,22 @@ class Level:
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)
 
 
-    def run(self, EVENT_TIMEOUT=EVENT_TIMEOUT, TIMEOUT_STEP=TIMEOUT_STEP, player_score=None):
+    def run(self, EVENT_TIMEOUT=EVENT_TIMEOUT, TIMEOUT_STEP=TIMEOUT_STEP, player_score=None, dt=None):
         pygame.mixer_music.load(f'./assets/musicalevel1.wav')
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
 
         while True:
-            clock.tick(60)
+            clock.tick(60) / 1000.0
+            dt = 1 / 60
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    import sys
+                    sys.exit()
+            self.timeout_restante -= dt
+            if self.timeout_restante <= 0:
+                self.timeout_restante = 0
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
