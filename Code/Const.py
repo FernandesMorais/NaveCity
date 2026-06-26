@@ -19,6 +19,13 @@ ENTITY_DAMAGE = {
     'Level1BG05': 0,
     'Level1BG06': 0,
     'Level1BG07': 0,
+    'Level2BG01': 0,
+    'Level2BG02': 0,
+    'Level2BG03': 0,
+    'Level2BG04': 0,
+    'Level2BG05': 0,
+    'Level2BG06': 0,
+    'Level2BG07': 0,
     'Player1': 1,
     'Player1Shot': 25,
     'Player2': 1,
@@ -64,6 +71,13 @@ ENTITY_HEALTH = {
     'Level1BG05': 999,
     'Level1BG06': 999,
     'Level1BG07': 999,
+    'Level2BG01': 999,
+    'Level2BG02': 999,
+    'Level2BG03': 999,
+    'Level2BG04': 999,
+    'Level2BG05': 999,
+    'Level2BG06': 999,
+    'Level2BG07': 999,
     'Player1': 300,
     'Player1Shot': 1,
     'Player2': 300,
@@ -82,6 +96,13 @@ ENTITY_SCORE = {
     'Level1BG05': 0,
     'Level1BG06': 0,
     'Level1BG07': 0,
+    'Level2BG01': 0,
+    'Level2BG02': 0,
+    'Level2BG03': 0,
+    'Level2BG04': 0,
+    'Level2BG05': 0,
+    'Level2BG06': 0,
+    'Level2BG07': 0,
     'Player1': 0,
     'Player1Shot': 0,
     'Player2': 0,
@@ -123,9 +144,15 @@ PLAYER_KEY_RIGHT = {'Player1':pygame.K_RIGHT,
 PLAYER_KEY_SHOOT = {'Player1':pygame.K_RCTRL,
                     'Player2':pygame.K_LCTRL}
 
-# S
-SPAWN_TIME = 4000
 
+
+
+# S
+SPAWN_TIME = 1000
+
+#T
+TIMEOUT_STEP = 100
+TIMEOUT_LEVEL = 10000
 
 
 #W
