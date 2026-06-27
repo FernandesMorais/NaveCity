@@ -16,10 +16,9 @@ class Game:
 
 
     def run(self):
-        menu = Menu(self.window)
-
         while True:
             score = Score(self.window)
+            menu = Menu(self.window)
             menu_return = menu.run()
 
             if menu_return in [MENU_OPTION[0], MENU_OPTION[1], MENU_OPTION[2]]:
