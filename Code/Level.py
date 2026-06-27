@@ -43,8 +43,7 @@ class Level:
         clock = pygame.time.Clock()
 
         while True:
-            clock.tick(60) / 1000.0
-            dt = 1 / 60
+            dt = clock.tick(60) / 1000.0
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
